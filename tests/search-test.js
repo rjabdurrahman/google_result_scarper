@@ -19,5 +19,4 @@ describe('Bing Search', function() {
             });
         });
     })
-    
-  });
+});
