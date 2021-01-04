@@ -1,6 +1,6 @@
 let landingPage = require('../pages/LandingPage');
 let resultPage = require('../pages/ResultPage');
-let { readData, writeResult } = require('../lib/excel_function');
+let { readData, writeResult } = require('../lib/excel');
 browser.waitForAngularEnabled(false);
 
 describe('Bing Search', function() {
@@ -15,7 +15,7 @@ describe('Bing Search', function() {
                 let res = texts.flat().every(x => x.includes(keyword));
                 test['Result'] = res ? 'PASS' : 'FAIL';
                 result.push(test);
-                writeResult(result)
+                writeResult(result);
             });
         });
     })
