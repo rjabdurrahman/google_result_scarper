@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
     "xlsx": "^0.16.9"
   }
 }
