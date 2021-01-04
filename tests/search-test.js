@@ -10,9 +10,9 @@ describe('Bing Search', function() {
             landingPage.get();
             let keyword = test['Data'];
             landingPage.search(keyword);
-            resultPage.clickAndGetResult(keyword.toLocaleLowerCase())
+            resultPage.clickAndGetResult()
             .then(texts => {
-                let res = texts.flat().every(x => x.includes(keyword));
+                let res = texts.flat().every(x => x.toLowerCase().includes(keyword.toLowerCase()));
                 test['Result'] = res ? 'PASS' : 'FAIL';
                 result.push(test);
                 writeResult(result);
