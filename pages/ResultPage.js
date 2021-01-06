@@ -1,8 +1,7 @@
-let { selectEl } = require('../lib/protractor');
-
-function LandingPage() {
-    this.resultHeadings = by.css('ol#b_results li.b_algo h2 a, ol#b_results li.b_ans div div h2 a');
-    this.resultPageButtons = by.css('.ent-dtab-style-content.ent-dtab-curr-content a');
+function ResultPage() {
+    let EC = protractor.ExpectedConditions;
+    this.resultHeadings = by.css('li>h2,li>div>div>h2');
+    this.resultPageButtons = by.css('.ent-dtab-content a');
     
     this.clickAndGetResult = async function() {
         let btns = element.all(this.resultPageButtons);
@@ -10,6 +9,8 @@ function LandingPage() {
             count -= 1;
             let allResultPromise = [];
             for(i = 0; i < count; i++) {
+                // browser.wait(EC.elementToBeClickable(btns.get(i)), 5000);
+                // allResultPromise.push(btns.get(i).getText());
                 btns.get(i).click();
                 allResultPromise.push(this.getResult())
             }
@@ -22,4 +23,5 @@ function LandingPage() {
         return await resItems.map(el => el.getText())
     }
 }
-module.exports = new LandingPage(); 
+
+module.exports = new ResultPage(); 
