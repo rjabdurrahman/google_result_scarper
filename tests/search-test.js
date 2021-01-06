@@ -28,7 +28,16 @@ describe('Bing Search', function() {
                     }
                     return item['Result'] == 'FAIL' && parseInt(item['No'].split('.')[0]) == testNo + 1;
                 });
-                if(failedRows) retest(keyword, failedRows);
+                if(failedRows) {
+                    retest(keyword, failedRows)
+                    .then(result => {
+                        let failedResults = result.flat();
+                        for(let i = 0; i < failedResults.length; i += 2) {
+                            failedResults[i + 1] = failedResults[i + 1].every(x => x.toLowerCase().includes(keyword.toLowerCase())) ? 'PASS' : 'FAIL';
+                        }
+                        console.log(failedResults);
+                    })
+                }
             });
         });
     });

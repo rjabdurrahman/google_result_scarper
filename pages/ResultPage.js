@@ -24,12 +24,14 @@ function ResultPage() {
     }
 
     this.failedBtnResult = function(failedRows) {
-        let failedBtNums = failedRows.map(x => x.failedInfo.failedBtnNo)
         let btns = element.all(this.resultPageButtons);
-        for(let i of failedBtNums) {
-            btns.get(i - 1).click();
-            // allResultPromise.push(this.getResult())
+        let allRetestResultPromise = [];
+        for(let fi of failedRows) {
+            btns.get(fi.failedInfo.failedBtnNo - 1).click();
+            allRetestResultPromise.push(Promise.resolve(fi.failedInfo.rowNo));
+            allRetestResultPromise.push(this.getResult())
         }
+        return Promise.all(allRetestResultPromise)
     }
 }
 
