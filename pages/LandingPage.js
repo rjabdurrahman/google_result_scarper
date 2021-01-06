@@ -12,4 +12,5 @@ function LandingPage() {
         selectEl(this.searchBox).sendKeys(keyword, protractor.Key.ENTER);
     }
 }
+
 module.exports = new LandingPage(); 

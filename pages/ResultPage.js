@@ -23,12 +23,12 @@ function ResultPage() {
         return await resItems.map(el => el.getText())
     }
 
-    this.failedBtnResult = function(failedRows) {
+    this.failedBtnResult = function(failedRows, keyword) {
         let btns = element.all(this.resultPageButtons);
         let allRetestResultPromise = [];
         for(let fi of failedRows) {
             btns.get(fi.failedInfo.failedBtnNo - 1).click();
-            allRetestResultPromise.push(Promise.resolve(fi.failedInfo.rowNo));
+            allRetestResultPromise.push(Promise.resolve({rowNo: fi.failedInfo.rowNo, keyword}));
             allRetestResultPromise.push(this.getResult())
         }
         return Promise.all(allRetestResultPromise)

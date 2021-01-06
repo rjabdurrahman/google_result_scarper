@@ -20,7 +20,6 @@ describe('Bing Search', function() {
                         result.push(new ResultRow('TC 1', keyword, `${testNo + 1}.${(i/2) + 1}`, btnsAndTexts[i], res, ''));
                     else result.push(new ResultRow('', '', `${testNo + 1}.${(i/2) + 1}`, btnsAndTexts[i], res, ''));
                 }
-                writeResult(result);
                 let failedRows = result.filter((item, index) => {
                     item['failedInfo'] = {
                         failedBtnNo : parseInt(item['No'].split('.')[1]),
@@ -30,12 +29,16 @@ describe('Bing Search', function() {
                 });
                 if(failedRows) {
                     retest(keyword, failedRows)
-                    .then(result => {
-                        let failedResults = result.flat();
-                        for(let i = 0; i < failedResults.length; i += 2) {
-                            failedResults[i + 1] = failedResults[i + 1].every(x => x.toLowerCase().includes(keyword.toLowerCase())) ? 'PASS' : 'FAIL';
+                    .then(res => {
+                        if(res) {
+                            for(let i = 0; i < res.length; i += 2) {
+                                let rerunRes = res[i + 1].every(r => r.toLowerCase().includes(res[i].keyword.toLowerCase())) ? 'PASS' : 'FAIL';
+                                console.log(res[i].rowNo, rerunRes);
+                                result[res[i].rowNo]['Rerun'] = rerunRes;
+                            }
+                            result.forEach(r => delete r.failedInfo)
+                            writeResult('Result.xlsx', result);
                         }
-                        console.log(failedResults);
                     })
                 }
             });
