@@ -2,6 +2,7 @@ let landingPage = require('../pages/LandingPage');
 let resultPage = require('../pages/ResultPage');
 let { readData, writeResult } = require('../lib/excel');
 let ResultRow = require('../Models/ResultRow');
+let  retest = require('./retest');
 browser.waitForAngularEnabled(false);
 
 describe('Bing Search', function() {
@@ -20,7 +21,14 @@ describe('Bing Search', function() {
                     else result.push(new ResultRow('', '', `${testNo + 1}.${(i/2) + 1}`, btnsAndTexts[i], res, ''));
                 }
                 writeResult(result);
-                console.log(result);
+                let failedRows = result.filter((item, index) => {
+                    item['failedInfo'] = {
+                        failedBtnNo : parseInt(item['No'].split('.')[1]),
+                        rowNo : index
+                    }
+                    return item['Result'] == 'FAIL' && parseInt(item['No'].split('.')[0]) == testNo + 1;
+                });
+                if(failedRows) retest(keyword, failedRows);
             });
         });
     });

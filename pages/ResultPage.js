@@ -22,6 +22,15 @@ function ResultPage() {
         let resItems = element.all(this.resultHeadings);
         return await resItems.map(el => el.getText())
     }
+
+    this.failedBtnResult = function(failedRows) {
+        let failedBtNums = failedRows.map(x => x.failedInfo.failedBtnNo)
+        let btns = element.all(this.resultPageButtons);
+        for(let i of failedBtNums) {
+            btns.get(i - 1).click();
+            // allResultPromise.push(this.getResult())
+        }
+    }
 }
 
 module.exports = new ResultPage(); 
