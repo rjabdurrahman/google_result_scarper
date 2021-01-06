@@ -10,7 +10,7 @@ function ResultPage() {
             let allResultPromise = [];
             for(i = 0; i < count; i++) {
                 // browser.wait(EC.elementToBeClickable(btns.get(i)), 5000);
-                // allResultPromise.push(btns.get(i).getText());
+                allResultPromise.push(btns.get(i).getText());
                 btns.get(i).click();
                 allResultPromise.push(this.getResult())
             }
