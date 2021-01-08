@@ -14,5 +14,10 @@
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "xlsx": "^0.16.9"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/mocha": "^8.2.0",
+    "@types/protractor": "^4.0.0"
   }
 }
