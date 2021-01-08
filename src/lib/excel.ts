@@ -1,5 +1,5 @@
 import XLSX from "xlsx";
-let workbook = XLSX.readFile("Test_Cases.xlsx");
+let workbook = XLSX.readFile("./Test_Cases.xlsx");
 let sheet_name_list = workbook.SheetNames;
 
 export function readData() {

@@ -30,10 +30,10 @@ var default_1 = /** @class */ (function () {
     function default_1() {
         this.searchBox = protractor_1.by.name("q");
     }
-    default_1.prototype.loadSite = function () {
+    default_1.loadSite = function () {
         protractor_1.browser.driver.get(process.env.URL);
     };
-    default_1.prototype.search = function (keyword) {
+    default_1.search = function (keyword) {
         protractor_2.selectEl(this.searchBox).sendKeys(keyword, protractor_1.default.Key.ENTER);
     };
     return default_1;
