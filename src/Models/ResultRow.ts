@@ -1,4 +1,11 @@
 class ResultRow {
+  private ["Test Case"]: any;
+  private ["Data"]: any;
+  private ["No"]: any;
+  private ["Button Text"]: any;
+  private ["Date - Time"]: any;
+  private ["Result"]: any;
+  private ["Rerun"]: any;
   constructor(
     testCase: any,
     data: any,

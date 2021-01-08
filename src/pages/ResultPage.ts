@@ -3,7 +3,7 @@ import protractor, {
   element,
   ProtractorExpectedConditions,
 } from "protractor";
-export class ResultPage {
+export default class ResultPage {
   private EC: ProtractorExpectedConditions;
   private resultHeadings: any;
   private resultPageButtons: any;

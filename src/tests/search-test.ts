@@ -1,19 +1,19 @@
 import { browser } from "protractor";
 import { readData, writeResult } from "../lib/excel";
 import ResultRow from "../Models/ResultRow";
-import landingPage from "../pages/LandingPage";
-import resultPage from "../pages/ResultPage";
-import retest from "./retest";
+import LandingPage from "../pages/LandingPage";
+import ResultPage from "../pages/ResultPage";
+import { retest } from "./retest";
 browser.waitForAngularEnabled(false);
 
 describe("Bing Search", function () {
   let result: any = [];
   readData().forEach((test: any, testNo: any) => {
     it(`Checking Tabs for Keyword - ${test["Data"]}`, async function () {
-      landingPage.get();
+      new LandingPage().loadSite();
       let keyword = test["Data"];
-      landingPage.search(keyword);
-      resultPage.clickAndGetResult().then((btnsAndTexts: any) => {
+      new LandingPage().search(keyword);
+      new ResultPage().clickAndGetResult().then((btnsAndTexts: any) => {
         for (let i = 0; i < btnsAndTexts.length; i += 2) {
           let res = btnsAndTexts[i + 1]
             .flat()
@@ -43,7 +43,7 @@ describe("Bing Search", function () {
               )
             );
         }
-        let failedRows = result.filter((item, index) => {
+        let failedRows = result.filter((item: any, index: any) => {
           item["failedInfo"] = {
             failedBtnNo: parseInt(item["No"].split(".")[1]),
             rowNo: index,
@@ -54,10 +54,10 @@ describe("Bing Search", function () {
           );
         });
         if (failedRows) {
-          retest(keyword, failedRows).then((res) => {
+          retest(keyword, failedRows).then((res: any) => {
             if (res) {
               for (let i = 0; i < res.length; i += 2) {
-                let rerunRes = res[i + 1].every((r) =>
+                let rerunRes = res[i + 1].every((r: any) =>
                   r.toLowerCase().includes(res[i].keyword.toLowerCase())
                 )
                   ? "PASS"
@@ -65,7 +65,7 @@ describe("Bing Search", function () {
                 console.log(res[i].rowNo, rerunRes);
                 result[res[i].rowNo]["Rerun"] = rerunRes;
               }
-              result.forEach((r) => delete r.failedInfo);
+              result.forEach((r: any) => delete r.failedInfo);
               writeResult("Result.xlsx", result);
             }
           });
