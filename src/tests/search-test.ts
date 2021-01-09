@@ -10,9 +10,9 @@ describe("Bing Search", function () {
   let result: any = [];
   readData().forEach((test: any, testNo: any) => {
     it(`Checking Tabs for Keyword - ${test["Data"]}`, async function () {
-      LandingPage.loadSite();
-      let keyword: any = test["Data"];
-      LandingPage.search(keyword);
+      new LandingPage().loadSite();
+      let keyword = test["Data"];
+      new LandingPage().search(keyword);
       new ResultPage().clickAndGetResult().then((btnsAndTexts: any) => {
         for (let i = 0; i < btnsAndTexts.length; i += 2) {
           let res = btnsAndTexts[i + 1]

@@ -1,16 +1,18 @@
 import dotenv from "dotenv";
-import protractor, { browser, by } from "protractor";
+import { browser, by, protractor } from "protractor";
 import { selectEl } from "../lib/protractor";
 dotenv.config();
 
-export default abstract class {
-  private static searchBox: any;
-  searchBox = by.name("q");
-  static loadSite() {
+export default class {
+  private searchBox: any;
+  constructor() {
+    this.searchBox = by.name("q");
+  }
+  loadSite() {
     browser.driver.get(process.env.URL as string);
   }
 
-  static search(keyword: string) {
+  search(keyword: string) {
     selectEl(this.searchBox).sendKeys(keyword, protractor.Key.ENTER);
   }
 }

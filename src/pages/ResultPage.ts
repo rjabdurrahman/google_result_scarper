@@ -1,6 +1,7 @@
-import protractor, {
+import {
   by,
   element,
+  protractor,
   ProtractorExpectedConditions,
 } from "protractor";
 export default class ResultPage {

@@ -8,8 +8,8 @@ var search = require("../pages/LandingPage").search;
 var LandingPage_1 = __importDefault(require("../pages/LandingPage"));
 var ResultPage_1 = __importDefault(require("../pages/ResultPage"));
 function retest(keyword, failedRows) {
-    LandingPage_1.default.loadSite();
-    LandingPage_1.default.search(keyword);
+    new LandingPage_1.default().loadSite();
+    new LandingPage_1.default().search(keyword);
     return new ResultPage_1.default().failedBtnResult(failedRows, keyword);
 }
 exports.retest = retest;

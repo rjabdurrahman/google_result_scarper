@@ -53,9 +53,9 @@ describe("Bing Search", function () {
             return __awaiter(this, void 0, void 0, function () {
                 var keyword;
                 return __generator(this, function (_a) {
-                    LandingPage_1.default.loadSite();
+                    new LandingPage_1.default().loadSite();
                     keyword = test["Data"];
-                    LandingPage_1.default.search(keyword);
+                    new LandingPage_1.default().search(keyword);
                     new ResultPage_1.default().clickAndGetResult().then(function (btnsAndTexts) {
                         for (var i = 0; i < btnsAndTexts.length; i += 2) {
                             var res = btnsAndTexts[i + 1]
