@@ -39,16 +39,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var dotenv_1 = __importDefault(require("dotenv"));
 var protractor_1 = require("protractor");
 var excel_1 = require("../lib/excel");
 var ResultRow_1 = __importDefault(require("../Models/ResultRow"));
 var LandingPage_1 = __importDefault(require("../pages/LandingPage"));
 var ResultPage_1 = __importDefault(require("../pages/ResultPage"));
 var retest_1 = require("./retest");
+dotenv_1.default.config();
 protractor_1.browser.waitForAngularEnabled(false);
 describe("Bing Search", function () {
     var result = [];
-    excel_1.readData().forEach(function (test, testNo) {
+    excel_1.readData(process.env.TEST_CASE_PATH).forEach(function (test, testNo) {
         it("Checking Tabs for Keyword - " + test["Data"], function () {
             return __awaiter(this, void 0, void 0, function () {
                 var landingPage, resultPage, keyword;
@@ -62,7 +64,9 @@ describe("Bing Search", function () {
                         for (var i = 0; i < btnsAndTexts.length; i += 2) {
                             var res = btnsAndTexts[i + 1]
                                 .flat()
-                                .every(function (x) { return x.toLowerCase().includes(keyword.toLowerCase()); })
+                                .every(function (x) {
+                                return x.toLowerCase().includes(keyword.toLowerCase());
+                            })
                                 ? "PASS"
                                 : "FAIL";
                             if (i == 0)
@@ -94,7 +98,7 @@ describe("Bing Search", function () {
                                         _loop_1(i);
                                     }
                                     result.forEach(function (r) { return delete r.failedInfo; });
-                                    excel_1.writeResult("Result.xlsx", result);
+                                    excel_1.writeResult(process.env.TEST_RESULT_PATH, result);
                                 }
                             });
                         }
