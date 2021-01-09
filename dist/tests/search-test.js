@@ -51,12 +51,14 @@ describe("Bing Search", function () {
     excel_1.readData().forEach(function (test, testNo) {
         it("Checking Tabs for Keyword - " + test["Data"], function () {
             return __awaiter(this, void 0, void 0, function () {
-                var keyword;
+                var landingPage, resultPage, keyword;
                 return __generator(this, function (_a) {
-                    new LandingPage_1.default().loadSite();
+                    landingPage = new LandingPage_1.default();
+                    resultPage = new ResultPage_1.default();
+                    landingPage.loadSite();
                     keyword = test["Data"];
-                    new LandingPage_1.default().search(keyword);
-                    new ResultPage_1.default().clickAndGetResult().then(function (btnsAndTexts) {
+                    landingPage.search(keyword);
+                    resultPage.clickAndGetResult().then(function (btnsAndTexts) {
                         for (var i = 0; i < btnsAndTexts.length; i += 2) {
                             var res = btnsAndTexts[i + 1]
                                 .flat()
