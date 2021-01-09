@@ -1,5 +1,7 @@
+import dotenv from "dotenv";
 import XLSX from "xlsx";
-let workbook = XLSX.readFile("./Test_Cases.xlsx");
+dotenv.config();
+let workbook = XLSX.readFile(process.env.TEST_CASE_PATH as string);
 let sheet_name_list = workbook.SheetNames;
 
 export function readData() {

@@ -16,10 +16,5 @@ function writeResult(fileName, res) {
     var newWs = xlsx_1.default.utils.json_to_sheet(res);
     xlsx_1.default.utils.book_append_sheet(newWb, newWs);
     xlsx_1.default.writeFile(newWb, fileName);
-    // fs.unlink(fileName, (err) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    // });
 }
 exports.writeResult = writeResult;

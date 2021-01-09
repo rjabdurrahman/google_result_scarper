@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
 import { browser } from "protractor";
 import { readData, writeResult } from "../lib/excel";
 import ResultRow from "../Models/ResultRow";
 import LandingPage from "../pages/LandingPage";
 import ResultPage from "../pages/ResultPage";
 import { retest } from "./retest";
+dotenv.config();
 browser.waitForAngularEnabled(false);
 
 describe("Bing Search", function () {
@@ -68,7 +70,7 @@ describe("Bing Search", function () {
                 result[res[i].rowNo]["Rerun"] = rerunRes;
               }
               result.forEach((r: any) => delete r.failedInfo);
-              writeResult("Result.xlsx", result);
+              writeResult(process.env.TEST_RESULT_PATH, result as string);
             }
           });
         }
