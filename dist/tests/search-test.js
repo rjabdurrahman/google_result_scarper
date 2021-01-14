@@ -70,7 +70,7 @@ describe("Bing Search", function () {
                                 ? "PASS"
                                 : "FAIL";
                             if (i == 0)
-                                result.push(new ResultRow_1.default("TC 1", keyword, testNo + 1 + "." + (i / 2 + 1), btnsAndTexts[i], res, ""));
+                                result.push(new ResultRow_1.default("TC " + (testNo + 1), keyword, testNo + 1 + "." + (i / 2 + 1), btnsAndTexts[i], res, ""));
                             else
                                 result.push(new ResultRow_1.default("", "", testNo + 1 + "." + (i / 2 + 1), btnsAndTexts[i], res, ""));
                         }

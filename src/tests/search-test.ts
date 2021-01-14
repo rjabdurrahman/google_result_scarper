@@ -5,24 +5,26 @@ import ResultRow from "../Models/ResultRow";
 import LandingPage from "../pages/LandingPage";
 import ResultPage from "../pages/ResultPage";
 import { retest } from "./retest";
+import { TestCase } from '../lib/types';
+
 dotenv.config();
 browser.waitForAngularEnabled(false);
 
 describe("Bing Search", function () {
-  let result: any = [];
+  let result: ResultRow[] = [];
   readData(process.env.TEST_CASE_PATH as string).forEach(
-    (test: any, testNo: any) => {
+    (test: TestCase, testNo: number) => {
       it(`Checking Tabs for Keyword - ${test["Data"]}`, async function () {
         let landingPage = new LandingPage();
         let resultPage = new ResultPage();
         landingPage.loadSite();
-        let keyword = test["Data"];
+        let keyword: string = test["Data"];
         landingPage.search(keyword);
         resultPage.clickAndGetResult().then((btnsAndTexts: any) => {
           for (let i = 0; i < btnsAndTexts.length; i += 2) {
-            let res = btnsAndTexts[i + 1]
+            let res: string = btnsAndTexts[i + 1]
               .flat()
-              .every((x: any) =>
+              .every((x: string) =>
                 x.toLowerCase().includes(keyword.toLowerCase())
               )
               ? "PASS"
@@ -30,7 +32,7 @@ describe("Bing Search", function () {
             if (i == 0)
               result.push(
                 new ResultRow(
-                  "TC 1",
+                  "TC " + (testNo + 1),
                   keyword,
                   `${testNo + 1}.${i / 2 + 1}`,
                   btnsAndTexts[i],
@@ -50,7 +52,7 @@ describe("Bing Search", function () {
                 )
               );
           }
-          let failedRows = result.filter((item: any, index: any) => {
+          let failedRows = result.filter((item: any, index: number) => {
             item["failedInfo"] = {
               failedBtnNo: parseInt(item["No"].split(".")[1]),
               rowNo: index,
@@ -64,7 +66,7 @@ describe("Bing Search", function () {
             retest(keyword, failedRows).then((res: any) => {
               if (res) {
                 for (let i = 0; i < res.length; i += 2) {
-                  let rerunRes = res[i + 1].every((r: any) =>
+                  let rerunRes = res[i + 1].every((r: string) =>
                     r.toLowerCase().includes(res[i].keyword.toLowerCase())
                   )
                     ? "PASS"
