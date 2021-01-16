@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "protractor dist/conf",
+    "test": "protractor dist/conf.js",
     "build": "tsc"
   },
   "keywords": [],

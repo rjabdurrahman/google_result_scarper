@@ -4,8 +4,8 @@ import { readData, writeResult } from "../lib/excel";
 import ResultRow from "../Models/ResultRow";
 import LandingPage from "../pages/LandingPage";
 import ResultPage from "../pages/ResultPage";
+import { TestCase } from '../Models/TestCase';
 import { retest } from "./retest";
-import { TestCase } from '../lib/types';
 
 dotenv.config();
 browser.waitForAngularEnabled(false);
